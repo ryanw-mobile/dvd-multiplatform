@@ -66,9 +66,10 @@ fun App() {
 
         // Draw the logo
         BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Black)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Black),
         ) {
             screenWidth = constraints.maxWidth.toFloat()
             screenHeight = constraints.maxHeight.toFloat()
@@ -76,13 +77,14 @@ fun App() {
             Image(
                 painter = logoPainter,
                 contentDescription = null,
-                modifier = Modifier
-                    .graphicsLayer(
-                        translationX = position.x,
-                        translationY = position.y
-                    )
-                    .size(logoSize),
-                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color)
+                modifier =
+                    Modifier
+                        .graphicsLayer(
+                            translationX = position.x,
+                            translationY = position.y,
+                        )
+                        .size(logoSize),
+                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color),
             )
         }
     }
