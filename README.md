@@ -2,6 +2,19 @@
 
 ### This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
 
+<br />
+<p align="center">
+  <img src="https://github.com/ryanw-mobile/dvd-multiplatform/blob/main/screenshot/240611_android_animated.gif" width="200" />&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/ryanw-mobile/dvd-multiplatform/blob/main/screenshot/240611_all_animated.gif" width="600" />
+<br />
+
+## Complementary article
+
+This is a sample app accompanying my Medium.com article [Build Your First Kotlin Multiplatform App: With Minimum KMP Knowledge - Achieve Maximum Efficiency with Minimal Effort](https://medium.com/@callmeryan/build-your-first-kotlin-multiplatform-app-with-minimum-kmp-knowledge-acc894dc270f). There you can learn how to set up a Kotlin Multiplatform (Compose Multiplatform) project from scratch, and build this app on Android, desktop, web and iOS.
+
+<br />
+<br />
+
 ## Some technical details
 
 * `/composeApp` is for Kotlin code shared across the Compose Multiplatform application.
@@ -28,6 +41,9 @@
 * [Ktlint Plugin](https://github.com/JLLeitschuh/ktlint-gradle) - JLLeitschuh - Plugin for Kotlin linter
 
 This format provides a brief description and link for each dependency and plugin. Adjust the descriptions and links as needed for your specific project.
+
+<br />
+<br />
 
 ## License
 
