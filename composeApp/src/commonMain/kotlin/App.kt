@@ -37,32 +37,11 @@ fun App() {
 
         val frameMillis = 16L
 
-        var screenWidth by remember { mutableStateOf(0f) }
-        var screenHeight by remember { mutableStateOf(0f) }
         val logoSize = 100.dp
 
         // Convert dp to px using LocalDensity
         val density = LocalDensity.current
         val logoSizePx = with(density) { logoSize.toPx() }
-
-        // Measure the screen size
-        LaunchedEffect(Unit) {
-            while (true) {
-                delay(frameMillis)
-
-                position += velocity
-
-                if (position.x <= 0 || position.x >= screenWidth - logoSizePx) {
-                    velocity = Offset(-velocity.x, velocity.y)
-                    color = Color(Random.nextFloat(), Random.nextFloat(), Random.nextFloat())
-                }
-
-                if (position.y <= 0 || position.y >= screenHeight - logoSizePx) {
-                    velocity = Offset(velocity.x, -velocity.y)
-                    color = Color(Random.nextFloat(), Random.nextFloat(), Random.nextFloat())
-                }
-            }
-        }
 
         // Draw the logo
         BoxWithConstraints(
@@ -71,8 +50,35 @@ fun App() {
                     .fillMaxSize()
                     .background(color = Color.Black),
         ) {
-            screenWidth = constraints.maxWidth.toFloat()
-            screenHeight = constraints.maxHeight.toFloat()
+            val screenWidth = constraints.maxWidth.toFloat()
+            val screenHeight = constraints.maxHeight.toFloat()
+
+            // Update position based on screen size
+            LaunchedEffect(screenWidth, screenHeight) {
+                while (true) {
+                    delay(frameMillis)
+
+                    position += velocity
+
+                    // Handle the new window boundaries
+                    if (position.x <= 0 || position.x >= screenWidth - logoSizePx) {
+                        velocity = Offset(-velocity.x, velocity.y)
+                        color = Color(Random.nextFloat(), Random.nextFloat(), Random.nextFloat())
+                    }
+
+                    if (position.y <= 0 || position.y >= screenHeight - logoSizePx) {
+                        velocity = Offset(velocity.x, -velocity.y)
+                        color = Color(Random.nextFloat(), Random.nextFloat(), Random.nextFloat())
+                    }
+
+                    // Ensure logo stays within boundaries if window is resized
+                    position =
+                        Offset(
+                            x = if (screenWidth > logoSizePx) position.x.coerceIn(0f, screenWidth - logoSizePx) else 0f,
+                            y = if (screenHeight > logoSizePx) position.y.coerceIn(0f, screenHeight - logoSizePx) else 0f,
+                        )
+                }
+            }
 
             Image(
                 painter = logoPainter,

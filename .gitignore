@@ -1,6 +1,9 @@
 # Gradle files
 .gradle/
 build/
+**/build/
+!src/**/build/
+.kotlin/metadata/kotlinTransformedMetadataLibraries
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -17,7 +20,7 @@ output.json
 
 # IntelliJ
 *.iml
-.idea/
+.idea
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
@@ -33,3 +36,23 @@ google-services.json
 *.hprof
 
 .DS_Store
+
+# KMP
+xcuserdata
+captures
+.externalNativeBuild
+.cxx
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries
+.kotlin/metadata
+.kotlin/sessions
+iosApp/Pods
+
+# iOS
+*.mobileprovision
+*.p12
