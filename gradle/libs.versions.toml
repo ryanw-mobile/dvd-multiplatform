@@ -6,7 +6,7 @@ android-targetSdk = "34"
 androidx-activityCompose = "1.9.1"
 compose-plugin = "1.6.11"
 ktlint = "12.1.1"
-kotlin = "2.0.0"
+kotlin = "2.0.10"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
