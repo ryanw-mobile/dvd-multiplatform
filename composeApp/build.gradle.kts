@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -64,6 +65,15 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+        }
+        val androidInstrumentedTest by getting {
+            dependencies {
+                implementation(project.dependencies.platform(libs.compose.bom))
+                implementation(libs.androidx.test.ext.junit)
+                implementation(libs.espresso.core)
+                implementation(libs.ui.test.junit4)
+                implementation(libs.androidx.test.rules)
+            }
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -139,6 +149,11 @@ android {
         versionCode = 2
         versionName = "1.1.0"
 
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
         // Bundle output filename
         val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss").format(Date())
         setProperty("archivesBaseName", "DVDMultiplatform-$versionName-$timestamp")
@@ -189,6 +204,24 @@ android {
                     "META-INF/LGPL2.1",
                     "META-INF/licenses/ASM",
                 )
+        }
+    }
+    testOptions {
+        animationsDisabled = true
+
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+
+        managedDevices {
+            devices {
+                create<ManagedVirtualDevice>("pixel2Api34") {
+                    device = "Pixel 2"
+                    apiLevel = 34
+                    systemImageSource = "aosp-atd"
+                }
+            }
         }
     }
     dependencies {

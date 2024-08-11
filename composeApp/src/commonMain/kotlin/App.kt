@@ -18,9 +18,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import dvdmultiplatform.composeapp.generated.resources.Res
+import dvdmultiplatform.composeapp.generated.resources.content_description_dvd_logo
 import dvdmultiplatform.composeapp.generated.resources.dvd_logo
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 
@@ -82,7 +84,7 @@ fun App() {
 
             Image(
                 painter = logoPainter,
-                contentDescription = null,
+                contentDescription = stringResource(resource = Res.string.content_description_dvd_logo),
                 modifier =
                     Modifier
                         .graphicsLayer(
