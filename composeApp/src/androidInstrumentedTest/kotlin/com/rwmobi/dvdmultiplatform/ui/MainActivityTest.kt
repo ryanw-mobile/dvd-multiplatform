@@ -10,6 +10,7 @@ package com.rwmobi.dvdmultiplatform.ui
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.rwmobi.dvdmultiplatform.MainActivity
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,8 +30,10 @@ class MainActivityTest {
     }
 
     @Test
-    fun appLaunchSuccessfully() {
-        with(mainActivityTestRobot) {
+    fun appLaunchSuccessfully() =
+        runBlocking {
+            with(mainActivityTestRobot) {
+                asserDvdLogoIsDisplayed()
+            }
         }
-    }
 }
