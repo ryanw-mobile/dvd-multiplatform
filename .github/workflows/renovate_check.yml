@@ -42,7 +42,7 @@ jobs:
         env:
           CI: 'true'
           KEYSTORE_LOCATION: ${{ steps.decode_keystore.outputs.filePath }}
-        
+
       - name: Gradle Check
         run: ./gradlew check assembleDebug --no-daemon
         env:

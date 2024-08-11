@@ -30,6 +30,8 @@ This is a sample app accompanying my Medium.com article [Build Your First Kotlin
 ### Dependencies
 
 * [AndroidX Activity Compose](https://developer.android.com/jetpack/androidx/releases/activity) - Apache 2.0 - Jetpack Compose integration with Activity
+* [AndroidX Test Ext JUnit](https://developer.android.com/jetpack/androidx/releases/test) - Apache 2.0 - Extensions for Android testing
+* [AndroidX Espresso](https://developer.android.com/training/testing/espresso) - Apache 2.0 - UI testing framework
 
 ### Plugins
 
