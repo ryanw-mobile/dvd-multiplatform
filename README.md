@@ -1,4 +1,4 @@
-## DVD Multiplatform ![Gradle Build](https://github.com/ryanw-mobile/dvd-multiplatform/actions/workflows/main_build.yml/badge.svg)
+## DVD Multiplatform <br/>![Gradle Build](https://github.com/ryanw-mobile/dvd-multiplatform/actions/workflows/main_build.yml/badge.svg) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 ### This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
 
