@@ -10,7 +10,7 @@ kotlin = "2.1.0"
 espresso-core = "3.6.1"
 testRules = "1.6.1"
 androidx-test-ext-junit = "1.2.1"
-compose-bom = "2024.11.00"
+compose-bom = "2024.12.01"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
