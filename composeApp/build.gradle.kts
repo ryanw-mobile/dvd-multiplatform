@@ -159,11 +159,6 @@ android {
         val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss").format(Date())
         setProperty("archivesBaseName", "DVDMultiplatform-$versionName-$timestamp")
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
@@ -217,9 +212,9 @@ android {
 
         managedDevices {
             devices {
-                create<ManagedVirtualDevice>("pixel2Api34") {
+                create<ManagedVirtualDevice>("pixel2Api36") {
                     device = "Pixel 2"
-                    apiLevel = 34
+                    apiLevel = 36
                     systemImageSource = "aosp-atd"
                 }
             }
