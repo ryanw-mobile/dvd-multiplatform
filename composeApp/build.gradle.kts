@@ -23,9 +23,9 @@ plugins {
 
 kotlin {
     wasmJs {
-        moduleName = "composeApp"
         browser {
             commonWebpackConfig {
+                outputModuleName = "composeApp"
                 outputFileName = "composeApp.js"
                 devServer =
                     (devServer ?: KotlinWebpackConfig.DevServer()).apply {
@@ -211,7 +211,7 @@ android {
         }
 
         managedDevices {
-            devices {
+            allDevices {
                 create<ManagedVirtualDevice>("pixel2Api35") {
                     device = "Pixel 2"
                     apiLevel = 35
