@@ -2,16 +2,16 @@
 
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Properties
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jmailen.gradle.kotlinter.tasks.FormatTask
 import org.jmailen.gradle.kotlinter.tasks.LintTask
 
@@ -168,13 +168,9 @@ tasks {
     preBuild { dependsOn("formatKotlin") }
 }
 
-tasks.withType<LintTask> {
-    this.source = this.source.minus(fileTree("composeApp/build")).asFileTree
-}
+tasks.withType<LintTask> { exclude { it.file.path.contains("generated/") } }
 
-tasks.withType<FormatTask> {
-    this.source = this.source.minus(fileTree("composeApp/build")).asFileTree
-}
+tasks.withType<FormatTask> { exclude { it.file.path.contains("generated/") } }
 
 detekt { parallel = true }
 
