@@ -48,9 +48,9 @@ fun App() {
         // Draw the logo
         BoxWithConstraints(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Black),
+            Modifier
+                .fillMaxSize()
+                .background(color = Color.Black),
         ) {
             val screenWidth = constraints.maxWidth.toFloat()
             val screenHeight = constraints.maxHeight.toFloat()
@@ -86,12 +86,12 @@ fun App() {
                 painter = logoPainter,
                 contentDescription = stringResource(resource = Res.string.content_description_dvd_logo),
                 modifier =
-                    Modifier
-                        .graphicsLayer(
-                            translationX = position.x,
-                            translationY = position.y,
-                        )
-                        .size(logoSize),
+                Modifier
+                    .graphicsLayer(
+                        translationX = position.x,
+                        translationY = position.y,
+                    )
+                    .size(logoSize),
                 colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color),
             )
         }

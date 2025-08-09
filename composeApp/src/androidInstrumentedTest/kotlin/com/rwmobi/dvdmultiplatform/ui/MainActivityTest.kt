@@ -30,10 +30,9 @@ class MainActivityTest {
     }
 
     @Test
-    fun appLaunchSuccessfully() =
-        runBlocking {
-            with(mainActivityTestRobot) {
-                asserDvdLogoIsDisplayed()
-            }
+    fun appLaunchSuccessfully() = runBlocking {
+        with(mainActivityTestRobot) {
+            asserDvdLogoIsDisplayed()
         }
+    }
 }
