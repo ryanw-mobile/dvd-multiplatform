@@ -12,6 +12,8 @@ import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Properties
+import org.jmailen.gradle.kotlinter.tasks.FormatTask
+import org.jmailen.gradle.kotlinter.tasks.LintTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -164,6 +166,14 @@ compose.desktop {
 tasks {
     check { dependsOn("detekt") }
     preBuild { dependsOn("formatKotlin") }
+}
+
+tasks.withType<LintTask> {
+    this.source = this.source.minus(fileTree("composeApp/build")).asFileTree
+}
+
+tasks.withType<FormatTask> {
+    this.source = this.source.minus(fileTree("composeApp/build")).asFileTree
 }
 
 detekt { parallel = true }
