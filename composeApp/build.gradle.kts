@@ -168,7 +168,7 @@ tasks {
     preBuild { dependsOn("formatKotlin") }
 }
 
-tasks.withType<LintTask> { exclude { it.file.path.contains("generated/") } }
+tasks.withType<LintTask> { exclude { it.file.path.contains("generated/") || it.file.path.contains("iosMain") || it.file.path.contains("wasmJsMain") } }
 
 tasks.withType<FormatTask> { exclude { it.file.path.contains("generated/") } }
 
