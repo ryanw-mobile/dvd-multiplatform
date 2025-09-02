@@ -11,13 +11,13 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
-import com.rwmobi.dvdmultiplatform.ui.test.ComposePagerTestRule
+import com.rwmobi.dvdmultiplatform.ui.test.ComposeTestRule
 import dvdmultiplatform.composeapp.generated.resources.Res
 import dvdmultiplatform.composeapp.generated.resources.content_description_dvd_logo
 import org.jetbrains.compose.resources.getString
 
 internal class MainActivityTestRobot(
-    private val composeTestRule: ComposePagerTestRule,
+    private val composeTestRule: ComposeTestRule,
 ) {
     // Actions
     fun printSemanticTree() {

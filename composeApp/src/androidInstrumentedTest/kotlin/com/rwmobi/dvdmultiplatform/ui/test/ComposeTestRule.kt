@@ -11,4 +11,4 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.rwmobi.dvdmultiplatform.MainActivity
 
-typealias ComposePagerTestRule = AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>
+typealias ComposeTestRule = AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>
