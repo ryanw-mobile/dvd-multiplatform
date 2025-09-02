@@ -75,14 +75,12 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
-        val androidInstrumentedTest by getting {
-            dependencies {
-                implementation(project.dependencies.platform(libs.compose.bom))
-                implementation(libs.androidx.test.ext.junit)
-                implementation(libs.espresso.core)
-                implementation(libs.ui.test.junit4)
-                implementation(libs.androidx.test.rules)
-            }
+        androidInstrumentedTest.dependencies {
+            implementation(compose.ui)
+            implementation(libs.androidx.test.ext.junit)
+            implementation(libs.espresso.core)
+            implementation(libs.ui.test.junit4)
+            implementation(libs.androidx.test.rules)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
