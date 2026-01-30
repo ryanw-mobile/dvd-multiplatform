@@ -1,6 +1,6 @@
 [versions]
 agp = "8.13.2"
-androidx-activityCompose = "1.12.2"
+androidx-activityCompose = "1.12.3"
 compose-plugin = "1.10.0"
 kotlin = "2.3.0"
 espresso-core = "3.7.0"
