@@ -15,10 +15,11 @@ A Kotlin Multiplatform (KMP) "DVD bouncing logo" screensaver app targeting Andro
 ```bash
 # Build
 ./gradlew build                          # Full build all targets
-./gradlew composeApp:build               # Build only the app module
+./gradlew composeApp:build               # Build only the shared KMP library module
+./gradlew androidApp:assembleDebug       # Build only the Android app module
 
 # Test
-./gradlew androidInstrumentedTest        # Android instrumented tests (Pixel 2 API 35 managed device)
+./gradlew :androidApp:pixel2Api35DebugAndroidTest   # Android instrumented tests (Pixel 2 API 35 managed device)
 
 # Code quality (run before committing)
 ./gradlew formatKotlin                   # Format Kotlin code (Kotlinter)
@@ -34,24 +35,28 @@ A Kotlin Multiplatform (KMP) "DVD bouncing logo" screensaver app targeting Andro
 All shared UI and business logic lives in `commonMain`. Platform-specific code is minimal — only entry points and `expect`/`actual` implementations.
 
 ```
-composeApp/src/
+composeApp/src/                  # KMP library module (com.android.kotlin.multiplatform.library
+                                  # for the Android target — no application entry point here)
 ├── commonMain/kotlin/          # Shared UI (App.kt) + Platform.kt expect declarations
 ├── commonMain/composeResources/ # Shared SVG assets and strings
-├── androidMain/                 # MainActivity, Platform.android.kt
+├── androidMain/                 # Platform.android.kt (actual only)
 ├── desktopMain/                 # main() entry point, Platform.jvm.kt
 ├── wasmJsMain/                  # WASM entry point, Platform.wasmJs.kt
-├── iosMain/                     # MainViewController, Platform.ios.kt
-└── androidInstrumentedTest/     # UI integration tests
+└── iosMain/                     # MainViewController, Platform.ios.kt
+
+androidApp/src/                  # Android application module (com.android.application)
+├── main/                        # MainActivity, AndroidManifest.xml, launcher icons/strings
+└── androidTest/                 # UI instrumented tests
 ```
 
 ### Platform Entry Points
 
 | Platform | File | Pattern |
 |---|---|---|
-| Android | `androidMain/.../MainActivity.kt` | `ComponentActivity` + `setContent { App() }` |
-| Desktop | `desktopMain/.../Main.kt` | `application { Window { App() } }` |
-| iOS | `iosMain/.../MainViewController.kt` | Native controller wrapper |
-| Web | `wasmJsMain/.../Main.kt` | WASM browser entry |
+| Android | `androidApp/src/main/.../MainActivity.kt` | `ComponentActivity` + `setContent { App() }`, depends on `composeApp` |
+| Desktop | `composeApp/src/desktopMain/.../Main.kt` | `application { Window { App() } }` |
+| iOS | `composeApp/src/iosMain/.../MainViewController.kt` | Native controller wrapper |
+| Web | `composeApp/src/wasmJsMain/.../Main.kt` | WASM browser entry |
 
 ### Key Files
 

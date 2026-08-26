@@ -17,13 +17,17 @@ This is a sample app accompanying my Medium.com article [Build Your First Kotlin
 
 ## Some technical details
 
-* `/composeApp` is for Kotlin code shared across the Compose Multiplatform application.
-  It contains several subfolders:
+* `/composeApp` is a Kotlin Multiplatform *library* module shared across all targets. It contains
+  several subfolders:
     - `commonMain` is for code that’s common for all targets.
-    - `androidMain` is the traditional Android project root.
+    - `androidMain` is the Android-target source set of the shared library (platform `actual`
+      declarations only — the Android app entry point lives in `/androidApp`, see below).
     - `desktopMain` is for the desktop (JVM) app.
     - `wasmJsMain` is for the web app.
     - `iosMain` is for the Kotlin code to be exposed to the iOS app.
+
+* `/androidApp` is the Android application module (entry point, manifest, signing, build variants).
+  It depends on `/composeApp` for the shared UI and platform code.
 
 * `/iosApp` contains the iOS application. Open `iosApp.xcodeproj` to build the App.
 
