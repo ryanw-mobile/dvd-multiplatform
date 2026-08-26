@@ -31,6 +31,25 @@ from System.getenv() / getProperty() returning null" against this specific block
 signing-config *logic* is modified in a future PR (not just moved), it is fair game to review
 again.
 
+### 2. `keystorePropertiesFile = file("../../keystore.properties")` in `androidApp/build.gradle.kts`
+
+**This path is correct — do not flag it as a "path traversal" / wrong-directory-depth bug.**
+`androidApp/` and `composeApp/` are both direct children of the repository root (same nesting
+depth), so `file(...)` in `androidApp/build.gradle.kts` resolves relative to `androidApp/`
+exactly as it previously resolved relative to `composeApp/build.gradle.kts` before the module
+split. `../../keystore.properties` correctly walks up two levels (`androidApp/` → repo root →
+repo root's parent directory) to reach a machine-local `keystore.properties` file that
+intentionally lives outside the repository (and outside version control) as a local-dev
+convention. A one-level-up suggestion (`../keystore.properties`) would point inside the repo
+root, where no such file exists, and would break local release builds.
+
+This path is only consulted for local (non-CI) release builds — CI always takes the
+`isRunningOnCI` branch and reads credentials from environment variables instead, so this has no
+bearing on CI reliability either way.
+
+This was raised and rejected in PR #38 (2026-08-26). Do not re-raise a "wrong relative path" /
+"path traversal" finding against this line.
+
 ## General guidance
 
 - This repository is a small KMP demo app (`dvd-multiplatform`), not a security-sensitive
