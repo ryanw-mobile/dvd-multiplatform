@@ -4,6 +4,24 @@ Persistent instructions for Amazon Q Developer's automated PR review. Q has no m
 review rounds — this file is the only durable record of prior review decisions. Read it before
 raising a finding.
 
+## Governance
+
+The maintainer of this repository is the product owner and has final decision authority over
+every finding Q raises. Q's role is to surface candidates for review, not to gate merges on its
+own judgment. A rule documented below is a **final, standing decision**, not a starting position
+for further debate.
+
+- **Rejections are permanent and apply project-wide**, not just to the PR they were first raised
+  on. If a future PR touches the same code (unchanged, or changed in a way not addressed by the
+  rule below), do not re-raise the underlying finding.
+- **Rewording, relabeling, or reclassifying under a different CWE/severity does not make a
+  rejected finding new.** Judge findings by the underlying claim, not its phrasing. If the
+  underlying claim already has a rule below, it is settled.
+- Do not treat a maintainer's rejection as something to keep re-testing across rounds "in case
+  they change their mind." They won't, on the same evidence. If genuinely new evidence exists
+  (the flagged logic itself changed, not just its file/module location), that's fair game — say
+  so explicitly and cite what specifically changed.
+
 ## Suppression rules
 
 ### 1. Pre-existing code moved unchanged during a structural/topology refactor
