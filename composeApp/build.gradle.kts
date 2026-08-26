@@ -16,6 +16,7 @@ import org.jmailen.gradle.kotlinter.tasks.FormatTask
 import org.jmailen.gradle.kotlinter.tasks.LintTask
 
 plugins {
+    id("base")
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
@@ -221,7 +222,7 @@ private fun BaseAppModuleExtension.setupSigningAndBuildTypes() {
                 || it.equals("build", ignoreCase = true)
     }
 
-    extensions.configure<BasePluginExtension> { archivesName.set(baseName) }
+    project.extensions.configure<BasePluginExtension> { archivesName.set(baseName) }
 
     signingConfigs.create(releaseSigningConfigName) {
         // Only initialise the signing config when a Release or Bundle task is being executed.
