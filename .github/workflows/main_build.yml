@@ -40,3 +40,16 @@ jobs:
           CI_ANDROID_KEYSTORE_ALIAS: ${{ secrets.CI_ANDROID_KEYSTORE_ALIAS }}
           CI_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.CI_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
           CI_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.CI_ANDROID_KEYSTORE_PASSWORD }}
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          ls /dev/kvm
+
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
+
+      - name: Debug Android Test
+        run: xvfb-run ./gradlew :androidApp:pixel2Api35DebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect -Pandroid.experimental.testOptions.managedDevices.emulator.showKernelLogging=true -Pandroid.experimental.testOptions.managedDevices.maxConcurrentDevices=1 -Pandroid.experimental.testOptions.managedDevices.setupTimeoutMinutes=180
