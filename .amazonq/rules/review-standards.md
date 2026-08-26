@@ -48,7 +48,13 @@ This path is only consulted for local (non-CI) release builds — CI always take
 bearing on CI reliability either way.
 
 This was raised and rejected in PR #38 (2026-08-26). Do not re-raise a "wrong relative path" /
-"path traversal" finding against this line.
+"path traversal" finding against this line — **under any label**, including a CWE-22 "Security
+Vulnerability" framing. `keystorePropertiesFile` is a hardcoded, developer-authored constant in a
+Gradle build script with no externally-controlled or attacker-influenced input, so CWE-22
+(pathname traversal from untrusted input) does not apply here regardless of citation. Also do not
+suggest replacing it with `rootProject.file("keystore.properties")` — that resolves inside the
+repository root, where no such file exists, and would silently break local release builds by
+looking in the wrong place for a file that is intentionally kept outside the repo.
 
 ## General guidance
 
