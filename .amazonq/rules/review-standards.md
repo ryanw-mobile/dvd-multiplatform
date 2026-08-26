@@ -56,6 +56,36 @@ suggest replacing it with `rootProject.file("keystore.properties")` — that res
 repository root, where no such file exists, and would silently break local release builds by
 looking in the wrong place for a file that is intentionally kept outside the repo.
 
+### 3. `SimpleDateFormat("yyyyMMdd-HHmmss")` timestamp in `androidApp/build.gradle.kts` (`setupSigningAndBuildTypes()`)
+
+**Do not flag this as a thread-safety / race-condition issue (CWE-366).** `timestamp` is a local
+`val`, created fresh on each invocation of `setupSigningAndBuildTypes()` and consumed entirely
+within that same function call — the `SimpleDateFormat` instance is never stored as a field,
+cached, or shared across threads or invocations. CWE-366 concerns a mutable instance *shared*
+between threads; a private, single-use local does not qualify no matter how many times
+`SimpleDateFormat` is cited as generally non-thread-safe. This exact line is also byte-for-byte
+identical to `composeApp/build.gradle.kts` before this refactor (only its enclosing module
+changed). Raised and rejected in PR #38 (2026-08-26).
+
+### 4. `Enable KVM group perms` step (`MODE="0666"`) in `.github/workflows/main_build.yml`
+
+**Do not flag `MODE="0666"` on the KVM udev rule as a CWE-732 permission-hardening issue.** This
+is the standard, widely-published udev snippet for enabling hardware-accelerated Android emulators
+on GitHub Actions Ubuntu runners (used verbatim in `ReactiveCircus/android-emulator-runner`'s own
+documentation and countless CI examples). GitHub Actions runners are ephemeral, single-tenant VMs
+destroyed after each job — there is no other untrusted user or process on the box for a
+world-writable-device concern to matter against, and tightening to `0660` risks breaking the
+emulator step if the runtime user isn't yet resolved into the `kvm` group at that point in the
+job, for no measurable benefit in this environment. Raised and rejected in PR #38 (2026-08-26).
+
+### 5. Unchecked `find` results (`apk_path`/`aab_path`) in `.github/workflows/tag_create_release.yml`
+
+**Do not flag the lack of empty-result validation on these `find` commands as a new crash risk.**
+Their structure (including the absence of a not-found check) predates this PR; this PR only
+changed the leading path segment from `./composeApp/...` to `./androidApp/...` as a mechanical
+consequence of the module split. No new risk was introduced by the refactor, so hardening this
+pre-existing gap is out of scope here. Raised and rejected in PR #38 (2026-08-26).
+
 ## General guidance
 
 - This repository is a small KMP demo app (`dvd-multiplatform`), not a security-sensitive
