@@ -12,8 +12,8 @@ detekt = "1.23.8"
 
 # App configurations, not dependencies
 minSdk = "26"
-targetSdk = "36"
-compileSdk = "36"
+targetSdk = "37"
+compileSdk = "37"
 versionCode = "3"
 versionName = "1.2.0"
 
