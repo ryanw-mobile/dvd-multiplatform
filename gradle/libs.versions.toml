@@ -2,7 +2,7 @@
 agp = "9.3.2"
 androidx-activityCompose = "1.13.0"
 compose-plugin = "1.12.0"
-kotlin = "2.3.21"
+kotlin = "2.4.10"
 espresso-core = "3.7.0"
 testRules = "1.7.0"
 androidx-test-ext-junit = "1.3.0"
